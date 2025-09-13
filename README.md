@@ -18,4 +18,4 @@ RIGHT = GPIO13 / Pin33<br>
 <b>Instructions to Install:</b><br>
 1) Image an 8GB SD Card with Raspberry Pi OS 64-bit.<br>
 2) Go through installation procecss. Create user named 'username' with pass named 'password'. Be sure to connect to WiFi to have complete installation.<br>
-3) [code] mkdir PeanutGB [/code] 
+3) ``` mkdir PeanutGB ```
