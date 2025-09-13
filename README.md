@@ -21,7 +21,7 @@ You will also need a USB-Micro to USB-A (Female) adapter and a HDMI-mini to HDMI
 <b>Instructions to Install:</b><br>
 1) Re-image an 8GB+ SD Card with Raspberry Pi OS 64-bit.<br>
 2) Go through installation process. Create user named ``` username ``` with pass named ``` password ```. Be sure to connect to WiFi to have complete installation.<br>
-3) Download and install 'LCD-show' using these steps: ``` git clone https://github.com/goodtft/LCD-show.git ``` ``` cd LCD-show/ ``` ``` sudo cp ./usr/tft9341-overlay.dtb /boot/overlays/tft9341.dtbo ```
+3) Download and install 'LCD-show' using these steps: ``` git clone https://github.com/goodtft/LCD-show.git ; cd LCD-show/ ; sudo cp ./usr/tft9341-overlay.dtb /boot/overlays/tft9341.dtbo ```
 4) ``` mkdir ~/PeanutGB ``` and dump all files found here into that folder.<br>
 5) ``` mkdir ~/PeanutGB/ROMS ``` and dump any ROM files into that folder.<br>
 6) ``` sudo sh ~/PeanutGB/install.sh ```, and possibly ``` echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc ```.<br>
