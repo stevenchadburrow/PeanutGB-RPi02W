@@ -1,5 +1,5 @@
 # PeanutGB-RPi02W
-<b>Running PeanutGB emulator on a Raspberry Pi 2W</b><br>
+<b>Running PeanutGB emulator on a Raspberry Pi Zero 2W</b><br>
 
 <a href="https://github.com/deltabeard/Peanut-GB">Link to Original PeanutGB Repo</a><br>
 
