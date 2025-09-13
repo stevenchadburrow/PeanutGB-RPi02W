@@ -21,11 +21,12 @@ You will also need a USB-Micro to USB-A (Female) adapter and a HDMI-mini to HDMI
 <b>Instructions to Install:</b><br>
 1) Re-image an 8GB+ SD Card with Raspberry Pi OS 64-bit.<br>
 2) Go through installation process. Create user named ``` username ``` with pass named ``` password ```. Be sure to connect to WiFi to have complete installation.<br>
-3) Download and install 'LCD-show' using these steps: ``` git clone https://github.com/goodtft/LCD-show.git ; cd LCD-show/ ; sudo cp ./usr/tft9341-overlay.dtb /boot/overlays/tft9341.dtbo ```
-4) ``` mkdir ~/PeanutGB ``` and dump all files found here into that folder.<br>
-5) ``` mkdir ~/PeanutGB/ROMS ``` and dump any ROM files into that folder.<br>
-6) ``` sudo sh ~/PeanutGB/install.sh ```, and if you want to automatically start PeanutGB on reboot also ``` echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc ```.<br>
-7) ``` sudo reboot ```.  If you did not want to automatically start PeanutGB on reboot, you will also need ``` sh ~/PeanutGB/run.sh ```.<br>
+3) Switch to TTY using Ctrl + Alt + F1.<br>
+4) Download and install 'LCD-show' using these steps: ``` git clone https://github.com/goodtft/LCD-show.git ; cd LCD-show/ ; sudo cp ./usr/tft9341-overlay.dtb /boot/overlays/tft9341.dtbo ```
+5) ``` mkdir ~/PeanutGB ``` and dump all files found here into that folder.<br>
+6) ``` mkdir ~/PeanutGB/ROMS ``` and dump any ROM files into that folder.<br>
+7) ``` sudo sh ~/PeanutGB/install.sh ```, and if you want to automatically start PeanutGB on reboot also ``` echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc ```.<br>
+8) ``` sudo reboot ```.  If you did not want to automatically start PeanutGB on reboot, you will also need ``` sh ~/PeanutGB/run.sh ```.<br>
 
 <b>Features:</b><br>
 The PeanutGB emulator used is actually a version by 'froggestspirit', found <a href="https://github.com/froggestspirit/Peanut-GB">here</a>, in order to play Gameboy Color games.<br>
