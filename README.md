@@ -16,7 +16,7 @@ LEFT = GPIO12 / Pin32<br>
 RIGHT = GPIO13 / Pin33<br>
 
 <b>Additional Requirements:</b><br>
-You will also need a USB-Micro to USB-A (Female) adapter, a HDMI-mini to HDMI adapter, a USB keyboard, and an HDMI monitor/television.
+You will also need a USB-Micro to USB-A (Female) adapter and a HDMI-mini to HDMI adapter.<br>
 
 <b>Instructions to Install:</b><br>
 1) Image an 8GB SD Card with Raspberry Pi OS 64-bit.<br>
