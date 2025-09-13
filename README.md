@@ -23,6 +23,15 @@ You will also need a USB-Micro to USB-A (Female) adapter and a HDMI-mini to HDMI
 2) Go through installation process. Create user named ``` username ``` with pass named ``` password ```. Be sure to connect to WiFi to have complete installation.<br>
 3) ``` mkdir PeanutGB ; cd PeanutGB ``` and dump all files found here into that folder.<br>
 4) ``` sudo sh install.sh ```, and possibly ``` echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc ```.<br>
-5) ``` sudo reboot ``` and everything should work as planned!
+5) ``` sudo reboot ``` and everything should work as planned!<br>
+
+<b>Features:</b><br>
+The version of PeanutGB used is actually from a version by 'froggestspirit', found <a href="https://github.com/froggestspirit/Peanut-GB">here</a>, in order to play Gameboy Color games.<br>
+All of PeanutGB is compiled using gcc and only uses standard Linux libraries.<br>
+In order to draw to the screen, PeanutGB will draw directly to /dev/fb0.<br>
+In order to get keyboard events, PeanutGB will read directly from /dev/input/event0.<br>
+In order to send audio data, PeanutGB will stream directly to /dev/dsp.<br>
+Warning: /dev/dsp is only available after ``` sudo modprobe snd-pcm-oss ```.<br>
+
 
 
