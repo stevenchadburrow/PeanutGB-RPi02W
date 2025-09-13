@@ -6,16 +6,26 @@
 
 int main(const int argc, const char **argv)
 {
-	if (argc < 3)
+	if (argc < 2)
 	{
-		printf("Needs Arguments:\n");
-		printf("<filename> 0 for Television Mode\n");
-		printf("<filename> 1 for Handheld Mode\n");
+		printf("Needs Argument: <filename>\n");
 
 		return 0;
 	}
 
-	scanline_handheld = atoi(argv[2]);
+	char size_buffer[3];
+	int size_file = open("/sys/class/graphics/fb0/virtual_size", O_RDONLY);
+	read(size_file, &size_buffer, 3);
+	close(size_file);
+
+	if (size_buffer[0] == '3' && size_buffer[1] == '2' && size_buffer[2] == '0')
+	{
+		scanline_handheld = 1;
+	}
+	else
+	{
+		scanline_handheld = 0;
+	}
 
 	FILE *input = NULL;
 
