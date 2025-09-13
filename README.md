@@ -29,13 +29,13 @@ You will also need a USB-Micro to USB-A (Female) adapter and a HDMI-mini to HDMI
 9) To run: ``` sh ~/PeanutGB/run.sh ```<br>
 
 <b>Features:</b><br>
-The PeanutGB emulator used is actually a version by 'froggestspirit', found <a href="https://github.com/froggestspirit/Peanut-GB">here</a>, in order to play Gameboy Color games.<br>
-If HDMI is plugged in on boot, games will played through HDMI.  Else, games will be played through LCD.<br>
-All of PeanutGB is compiled using ``` gcc ``` and only uses standard Linux libraries.<br>
-In order to draw to the screen, PeanutGB will draw directly to ``` /dev/fb0 ```.<br>
-In order to get keyboard events, PeanutGB will read directly from ``` /dev/input/event0 ```.<br>
-In order to send audio data, PeanutGB will stream directly to ``` /dev/dsp ```.<br>
-Warning: ``` /dev/dsp ``` is only available after ``` sudo modprobe snd-pcm-oss ```.<br>
+- The PeanutGB emulator used is actually a version by 'froggestspirit', found <a href="https://github.com/froggestspirit/Peanut-GB">here</a>, in order to play Gameboy Color games.<br>
+- If HDMI is plugged in on boot, games will played through HDMI.  Else, games will be played through LCD.<br>
+- All of PeanutGB is compiled using ``` gcc ``` and only uses standard Linux libraries.<br>
+- In order to draw to the screen, PeanutGB will draw directly to ``` /dev/fb0 ```.<br>
+- In order to get keyboard events, PeanutGB will read directly from ``` /dev/input/event0 ```.<br>
+- In order to send audio data, PeanutGB will stream directly to ``` /dev/dsp ```.<br>
+- Warning: ``` /dev/dsp ``` is only available after ``` sudo modprobe snd-pcm-oss ```.<br>
 
 
 
