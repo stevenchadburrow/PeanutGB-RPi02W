@@ -24,7 +24,7 @@ You will also need a USB-Micro to USB-A (Female) adapter and a HDMI-mini to HDMI
 3) Switch to TTY using Ctrl + Alt + F1, then ``` sudo raspi-config ```.<br>
 4) Select to boot to Console instead of Desktop, disable Splash, and set VNC resolution to 640x480.<br>
 5) ``` mkdir ~/PeanutGB ```, then put all files found here into that folder.
-6) ``` mkdir ~/PeanutGB/ROMS ```, then put whatever Gameboy and Gameboy Color ROMS into that folder.
+6) ``` mkdir ~/PeanutGB/ROMS ```, then put whatever Gameboy and Gameboy Color ROMs into that folder.
 8) ``` sudo sh ~/PeanutGB/install.sh ```, then ``` sudo reboot ``` for changes to take effect.
 9) To run: ``` sh ~/PeanutGB/run.sh ```<br>
 
