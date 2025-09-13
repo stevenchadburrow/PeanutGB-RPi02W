@@ -3,7 +3,7 @@
 
 <a href="https://github.com/deltabeard/Peanut-GB">Link to Original Peanut-GB Repo</a><br>
 
-<b>Connecting an ILI9341 using SPI mode using pins:</b><br>
+<b>Connecting an ILI9341 in SPI mode using pins:</b><br>
 CS = GPIO8 / Pin24<br>
 MISO = GPIO9 / Pin21<br>
 MOSI = GPIO10 / Pin19<br>
