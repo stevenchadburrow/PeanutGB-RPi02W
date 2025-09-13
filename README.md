@@ -15,6 +15,9 @@ DC = GPIO22 / Pin15<br>
 LEFT = GPIO12 / Pin32<br>
 RIGHT = GPIO13 / Pin33<br>
 
+<b>Additional Requirements:</b><br>
+You will also need a USB-Micro to USB-A (Female) adapter, a HDMI-mini to HDMI adapter, a USB keyboard, and an HDMI monitor/television.
+
 <b>Instructions to Install:</b><br>
 1) Image an 8GB SD Card with Raspberry Pi OS 64-bit.<br>
 2) Go through installation process. Create user named 'username' with pass named 'password'. Be sure to connect to WiFi to have complete installation.<br>
