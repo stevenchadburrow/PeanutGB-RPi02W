@@ -17,7 +17,7 @@ RIGHT = GPIO13 / Pin33<br>
 
 <b>Instructions to Install:</b><br>
 1) Image an 8GB SD Card with Raspberry Pi OS 64-bit.<br>
-2) Go through installation procecss. Create user named 'username' with pass named 'password'. Be sure to connect to WiFi to have complete installation.<br>
+2) Go through installation process. Create user named 'username' with pass named 'password'. Be sure to connect to WiFi to have complete installation.<br>
 3) ``` mkdir PeanutGB ; cd PeanutGB ``` and dump all files found here into that folder.<br>
 4) ``` sudo sh install.sh ```, and possibly ``` echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc ```.<br>
 5) ``` sudo reboot ``` and everything should work as planned!
