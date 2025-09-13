@@ -14,7 +14,7 @@ SCLK = GPIO11 / Pin23<br>
 RESET = GPIO0 / Pin27<br>
 DC = GPIO22 / Pin15<br>
 
-<b>Connecting 3.5mm Audio Jack using pins:</b><br>
+<b>Connecting a 3.5mm Audio Jack using pins:</b><br>
 LEFT = GPIO12 / Pin32<br>
 RIGHT = GPIO13 / Pin33<br>
 
