@@ -15,20 +15,20 @@
 #include <sys/soundcard.h>
 #include <time.h>
 
-volatile unsigned char *cart_rom[0x400000]; // 4 MB max
-volatile unsigned char cart_ram[32768]; // used for NES, GB, and SMS
+unsigned char cart_rom[0x400000]; // 4 MB max
+unsigned char cart_ram[32768]; // used for NES, GB, and SMS
 
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
-volatile unsigned short screen_buffer[SCREEN_WIDTH*SCREEN_HEIGHT];
+unsigned short screen_buffer[SCREEN_WIDTH*SCREEN_HEIGHT];
 
 #define SCREEN_LARGE_WIDTH 640
 #define SCREEN_LARGE_HEIGHT 480
-volatile unsigned short screen_large_buffer[SCREEN_LARGE_WIDTH*SCREEN_LARGE_HEIGHT];
+unsigned short screen_large_buffer[SCREEN_LARGE_WIDTH*SCREEN_LARGE_HEIGHT];
 
 #define AUDIO_LENGTH 8192
-volatile unsigned char audio_buffer[AUDIO_LENGTH];
-volatile unsigned char audio_enable = 1;
+unsigned char audio_buffer[AUDIO_LENGTH];
+unsigned char audio_enable = 1;
 
 #include "minigb_apu.h"
 #include "minigb_apu.c"
@@ -42,8 +42,8 @@ struct priv_t
 };
 
 
-volatile uint8_t __attribute__((coherent)) boot_rom[256];
-volatile uint16_t selected_palette_lcd[3][7];
+uint8_t boot_rom[256];
+uint16_t selected_palette_lcd[3][7];
 
 unsigned char reset_check = 0;
 unsigned char palette_num = 0;
@@ -90,6 +90,7 @@ unsigned char gb_read_cart_ram_file(char filename[16])
  */
 void gb_error(struct gb_s *gb, const enum gb_error_e gb_err, const uint16_t addr)
 {
+/*
 	const char* gb_err_str[GB_INVALID_MAX] = {
 		"UNKNOWN\\",
 		"INVALID OPCODE\\",
@@ -109,7 +110,7 @@ void gb_error(struct gb_s *gb, const enum gb_error_e gb_err, const uint16_t addr
 	{
 		long_addr = (uint32_t)addr * (uint32_t)gb->selected_rom_bank;
 	}
-
+*/
 	printf("Error\n");
 
 	while (1) { }

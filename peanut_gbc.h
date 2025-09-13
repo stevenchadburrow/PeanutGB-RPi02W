@@ -37,16 +37,16 @@
 
 #pragma once
 
-volatile uint8_t scanline_pixels1[160] = {0};
-volatile uint8_t scanline_pixels2[160] = {0};
-volatile uint8_t scanline_pixels_prio[160] = {0};  //do these pixels have priority over OAM?
-volatile uint8_t scanline_scaled = 1; // to make 1.5x scale
-volatile uint8_t scanline_handheld = 0; // switch between hdmi or lcd
-volatile uint8_t scanline_toggle = 0;
-volatile uint8_t scanline_count = 0;
-volatile uint8_t scanline_draw = 1; // always keep on
-volatile uint8_t scanline_sync = 0;
-volatile uint8_t scanline_hack = 1; // default on, removes sprite priority issues with GBC
+uint8_t scanline_pixels1[160] = {0};
+uint8_t scanline_pixels2[160] = {0};
+uint8_t scanline_pixels_prio[160] = {0};  //do these pixels have priority over OAM?
+uint8_t scanline_scaled = 1; // to make 1.5x scale
+uint8_t scanline_handheld = 0; // switch between hdmi or lcd
+uint8_t scanline_toggle = 0;
+uint8_t scanline_count = 0;
+uint8_t scanline_draw = 1; // always keep on
+uint8_t scanline_sync = 0;
+uint8_t scanline_hack = 1; // default on, removes sprite priority issues with GBC
 
 #include <stdlib.h>	/* Required for qsort and abort */
 #include <stdbool.h>	/* Required for bool types */
@@ -439,10 +439,10 @@ struct gb_s {
     struct count_s counter;
 
     /* TODO: Allow implementation to allocate WRAM, VRAM and Frame Buffer. */
-    volatile uint8_t wram[WRAM_SIZE];
-    volatile uint8_t vram[VRAM_SIZE];
-    volatile uint8_t hram[HRAM_SIZE];
-    volatile uint8_t oam[OAM_SIZE];
+    uint8_t wram[WRAM_SIZE];
+    uint8_t vram[VRAM_SIZE];
+    uint8_t hram[HRAM_SIZE];
+    uint8_t oam[OAM_SIZE];
 
     struct
     {

@@ -16,15 +16,18 @@ sudo chmod +rwx /etc/rc.local
 sudo chown root /etc/rc.local
 
 gcc -o /home/username/PeanutGB/buttons.o /home/username/PeanutGB/buttons.c
+gcc -o /home/username/PeanutGB/menu.o /home/username/PeanutGB/menu.c
 gcc -O3 -o /home/username/PeanutGB/PeanutGB.o /home/username/PeanutGB/main.c
 
 sudo chmod +x /home/username/PeanutGB/buttons.o
+sudo chmod +x /home/username/PeanutGB/menu.o
 sudo chmod +x /home/username/PeanutGB/PeanutGB.o
 
 sudo chown username /home/username/PeanutGB/buttons.o
+sudo chown username /home/username/PeanutGB/menu.o
 sudo chown username /home/username/PeanutGB/PeanutGB.o
 
-echo "Installed PeanutGB! Reboot to finalize."
+echo "Installed PeanutGB! Reboot for changes to take effect."
 echo "To manually play: sh ~/PeanutGB/run.sh"
 echo "To auto play: echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc"
 

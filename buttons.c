@@ -17,7 +17,7 @@ int main()
 	for (int i=0; i<256; i++) string[i] = 0;
 
 	int keys_fd;
-    struct input_event keys_ev;
+    	struct input_event keys_ev;
 
 	keys_fd = open("/dev/input/event0", O_RDONLY);
 
@@ -25,7 +25,7 @@ int main()
 	{
 		while (1)
 		{
-		   	read(keys_fd, &keys_ev, sizeof(struct input_event));
+			read(keys_fd, &keys_ev, sizeof(struct input_event));
 
 			//printf("%d %d\n", keys_ev.code, keys_ev.value); // just for testing
 

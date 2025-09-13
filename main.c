@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <linux/kd.h>
+#include <termios.h>
 
 #include "peanut_gb.c"
 
@@ -55,15 +56,19 @@ int main(const int argc, const char **argv)
 
 	fclose(input);
 
+	//struct termios term;
+	//tcgetattr(fileno(stdin), &term);
+	//term.c_lflag &= ~ECHO;
+	//term.c_lflag &= ~ICANON;
+	//tcsetattr(fileno(stdin), 0, &term); // turn off echo
+
 	char tty_name[16];
 
 	system("tty > /home/username/PeanutGB/temp.val");
 	system("echo \"                \" >> /home/username/PeanutGB/temp.val");
 
 	int tty_file = open("/home/username/PeanutGB/temp.val", O_RDWR);
-	
 	read(tty_file, &tty_name, 16);
-
 	close(tty_file);
 
 	system("rm /home/username/PeanutGB/temp.val");
@@ -74,20 +79,22 @@ int main(const int argc, const char **argv)
 	}
 
 	tty_file = open(tty_name, O_RDWR);
-
 	ioctl(tty_file, KDSETMODE, KD_GRAPHICS); // turn off tty
 
 	// this needs 'sudo' perhaps do it in rc.local or something?
 	//system("modprobe snd-pcm-oss"); // opens up /dev/dsp
 	// this sets the volume, change accordingly
-	//system("amixer set Master 25%");
+	//system("amixer set Master 50%");
 
 	//PeanutGB(0, "/home/username/PeanutGB/buttons.val"); // DMG
 	PeanutGB(1, "/home/username/PeanutGB/buttons.val"); // GBC
 
 	ioctl(tty_file, KDSETMODE, KD_TEXT); // turn on tty
-
 	close(tty_file);
+
+	//term.c_lflag |= ECHO;
+	//term.c_lflag |= ICANON;
+	//tcsetattr(fileno(stdin), 0, &term); // turn on echo
 
 	return 1;
 }
