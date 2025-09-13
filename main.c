@@ -7,12 +7,35 @@
 
 int main(const int argc, const char **argv)
 {
+	char game_path[256];
+	char game_name[64];
+
+	for (int i=0; i<256; i++) game_path[i] = 0;
+	for (int i=0; i<64; i++) game_name[i] = 0;
+
 	if (argc < 2)
 	{
-		printf("Needs Argument: <filename>\n");
+		FILE *game_file = NULL;
 
-		return 0;
+		game_file = fopen("/home/username/PeanutGB/game.val", "rt");
+		if (!game_file)
+		{
+			printf("Cannot find game.val, needs argument\n");
+			return 0;
+		}
+
+		fscanf(game_file, "%s", game_name);
+
+		fclose(game_file);
+
+		sprintf(game_path, "/home/username/PeanutGB/ROMS/%s", game_name);
 	}
+	else
+	{
+		sprintf(game_path, "%s", argv[1]);
+	}
+
+	printf("Game Path: %s\n", game_path);
 
 	char size_buffer[3];
 	int size_file = open("/sys/class/graphics/fb0/virtual_size", O_RDONLY);
@@ -30,8 +53,8 @@ int main(const int argc, const char **argv)
 
 	FILE *input = NULL;
 
-	input = fopen(argv[1], "rt");
-	
+	input = fopen(game_path, "rt");
+
 	if (!input)
 	{
 		printf("Error Opening File\n");

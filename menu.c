@@ -44,6 +44,8 @@ int main()
 
 	system("rm /home/username/PeanutGB/list.val");
 
+	system("echo '0' > /home/username/PeanutGB/game.val");
+
 	system("stty -echo -icanon");
 
 	int file = 0;
@@ -97,7 +99,7 @@ int main()
 		{
 			char command[512];
 			for (int i=0; i<512; i++) command[i] = 0;
-			sprintf(command, "/home/username/PeanutGB/PeanutGB.o /home/username/PeanutGB/ROMS/%s", list[select]);
+			sprintf(command, "echo '%s' > /home/username/PeanutGB/game.val", list[select]);
 			system(command);
 
 			buffer[0] = 27; // escape
