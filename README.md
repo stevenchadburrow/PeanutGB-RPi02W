@@ -19,7 +19,7 @@ RIGHT = GPIO13 / Pin33<br>
 You will also need a USB-Micro to USB-A (Female) adapter and a HDMI-mini to HDMI adapter.<br>
 
 <b>Instructions to Install:</b><br>
-1) Image an 8GB SD Card with Raspberry Pi OS 64-bit.<br>
+1) Re-image an 8GB+ SD Card with Raspberry Pi OS 64-bit.<br>
 2) Go through installation process. Create user named 'username' with pass named 'password'. Be sure to connect to WiFi to have complete installation.<br>
 3) ``` mkdir PeanutGB ; cd PeanutGB ``` and dump all files found here into that folder.<br>
 4) ``` sudo sh install.sh ```, and possibly ``` echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc ```.<br>
