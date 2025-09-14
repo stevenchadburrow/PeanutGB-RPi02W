@@ -54,7 +54,7 @@ You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HD
    exit 0
    ```
 8) ``` sudo chmod +rwx /etc/rc.local ; sudo chown root /etc/rc.local ``` to give permissions to file.
-9) ``` sudo sh ~/PeanutGB/install.sh ```, then ``` sudo reboot ``` for changes to take effect.
+9) ``` sh ~/PeanutGB/install.sh ```, then ``` sudo reboot ``` for changes to take effect.
 10) To run: ``` sh ~/PeanutGB/run.sh ```, or to auto run on boot: ``` echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc ```.<br>
 
 <b>Features:</b><br>
