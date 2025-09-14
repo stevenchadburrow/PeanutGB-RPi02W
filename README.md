@@ -23,12 +23,12 @@ RIGHT = GPIO13 / Pin33<br>
 You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HDMI adapter.<br>
 
 <b>Instructions to Install:</b><br>
-1) Re-image an 8GB+ SD Card with Raspberry Pi OS 64-bit.<br>
-2) Go through installation process. Create user named ``` username ``` with pass named ``` password ```. Be sure to connect to WiFi and install the updates.<br>
-3) ``` mkdir ~/PeanutGB ```, put all files found here into that folder.
-4) ``` mkdir ~/PeanutGB/ROMS ```, put whatever Gameboy and Gameboy Color ROMs into that folder.
-5) You can pull the SD Card from the Pi and connect it to another Linux computer to transfer files, or you can use the built-in Desktop on the Pi.<br>
-6) ``` sudo raspi-config ```, select to boot to Console instead of Desktop, disable Splash, and set VNC resolution to 640x480, then reboot.<br>
+1) Re-image an 8GB+ SD Card with Raspberry Pi OS <u>Lite</u> 64-bit.<br>
+2) Go through installation process. Create user named ``` username ``` with pass named ``` password ```.<br>
+3) ``` sudo raspi-config ```, select to boot to Console instead of Desktop, disable Splash, and set VNC resolution to 640x480, then reboot.<br>
+4) ``` mkdir ~/PeanutGB ```, put all files found here into that folder.
+5) ``` mkdir ~/PeanutGB/ROMS ```, put whatever Gameboy and Gameboy Color ROMs into that folder.
+6) You can pull the SD Card from the Pi and connect it to another Linux computer to transfer files, or some other means.<br>
 7) ``` sudo sh ~/PeanutGB/install.sh ```, then ``` sudo reboot ``` for changes to take effect.
 8) To run: ``` sh ~/PeanutGB/run.sh ```, or to auto run on boot: ``` echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc ```.<br>
 
