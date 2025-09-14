@@ -30,14 +30,18 @@ You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HD
 5) ``` mkdir ~/PeanutGB/ROMS ```, put whatever Gameboy and Gameboy Color ROMs into that folder.
 6) You can pull the SD Card from the Pi and connect it to another Linux computer to transfer files, or some other means.<br>
 7) ``` sudo nano /boot/firmware/config.txt ```, then add these lines to the bottom:
-   - ``` enable_tvout=0 ```
-   - ``` dtparam=spi=on ```
-   - ``` dtoverlay=fbtft,spi0-0,ili9341,bgr,rotate=270,speed=50000000,dc_pin=22,reset_pin=0,framebuffer_width=320,framebuffer_height=240 ```
-   - ``` dtoverlay=audremap,pins_12_13 ```
-   - ``` audio_pwm_mode=2 ```
-   - ``` disable_audio_dither ```
+   ```
+   enable_tvout=0
+   dtparam=spi=on
+   dtoverlay=fbtft,spi0-0,ili9341,bgr,rotate=270,speed=50000000,dc_pin=22,reset_pin=0,framebuffer_width=320,framebuffer_height=240
+   dtoverlay=audremap,pins_12_13
+   audio_pwm_mode=2
+   disable_audio_dither
+   ```
 8) ``` sudo nano /boot/firmware/cmdline.txt ```, then add to the end of the first line:
-   - ``` video=HDMI-A-1:640x480M@60,margin_top=20,margin_bottom=20,margin_left=20,margin_right=20 ```
+   ```
+   video=HDMI-A-1:640x480M@60,margin_top=20,margin_bottom=20,margin_left=20,margin_right=20
+   ```
 8) ``` sudo sh ~/PeanutGB/install.sh ```, then ``` sudo reboot ``` for changes to take effect.
 9) To run: ``` sh ~/PeanutGB/run.sh ```, or to auto run on boot: ``` echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc ```.<br>
 
