@@ -1,8 +1,5 @@
 #!/bin/bash
 
-git clone https://github.com/goodtft/LCD-show.git
-sudo cp ./LCD-show/usr/tft9341-overlay.dtb /boot/overlays/tft9341.dtbo
-
 sudo rm /boot/firmware/config.txt
 sudo cp /home/username/PeanutGB/config_new.txt /boot/firmware/config.txt
 sudo rm /boot/firmware/cmdline.txt
