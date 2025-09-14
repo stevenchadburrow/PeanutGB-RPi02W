@@ -26,8 +26,8 @@ You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HD
 1) Re-image an 8GB+ SD Card with Raspberry Pi OS Lite 64-bit.<br>
 2) Create user named ``` username ``` with pass named ``` password ```.<br>
 3) ``` sudo raspi-config ```, change settings in Auto Login to automatically login without password required.<br>
-4) ``` mkdir ~/PeanutGB ```, put all files found here into that folder.
-5) ``` mkdir ~/PeanutGB/ROMS ```, put whatever Gameboy and Gameboy Color ROMs into that folder.
+4) ``` mkdir ~/PeanutGB ```, put all files found here into that folder.<br>
+5) ``` mkdir ~/PeanutGB/ROMS ```, put whatever Gameboy and Gameboy Color ROMs into that folder.<br>
 6) You can pull the SD Card from the Pi and connect it to another Linux computer to transfer files, or some other means.<br>
 7) ``` sudo nano /boot/firmware/config.txt ```, and comment out the line ``` #dtoverlay=vc4-kms-v3d ```, the then add these lines to the bottom under ``` [all] ```:
    ```
@@ -53,9 +53,10 @@ You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HD
    sudo modprobe snd-pcm-oss
    exit 0
    ```
-8) ``` sudo chmod +rwx /etc/rc.local ; sudo chown root /etc/rc.local ``` to give permissions to file.
-9) ``` sh ~/PeanutGB/install.sh ```, then ``` sudo reboot ``` for changes to take effect.
-10) To run: ``` sh ~/PeanutGB/run.sh ```, or to auto run on boot: ``` echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc ```.<br>
+8) ``` sudo chmod +rwx /etc/rc.local ; sudo chown root /etc/rc.local ``` to give permissions to file.<br>
+9) ``` sudo reboot ``` for changes to take effect.<br>
+10) ``` sh ~/PeanutGB/install.sh ```, to compile all C files.<br>
+11) To run: ``` sh ~/PeanutGB/run.sh ```, or to auto run on boot: ``` echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc ```.<br>
 
 <b>Features:</b><br>
 - The PeanutGB emulator used is actually a version by 'froggestspirit', found <a href="https://github.com/froggestspirit/Peanut-GB">here</a>, in order to play Gameboy Color games.<br>
