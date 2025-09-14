@@ -1,17 +1,5 @@
 #!/bin/bash
 
-sudo rm /boot/firmware/config.txt
-sudo cp /home/username/PeanutGB/config_new.txt /boot/firmware/config.txt
-sudo rm /boot/firmware/cmdline.txt
-sudo cp /home/username/PeanutGB/cmdline_new.txt /boot/firmware/cmdline.txt
-
-sudo echo "#!/bin/sh" > /etc/rc.local
-sudo echo "sudo modprobe snd-pcm-oss" >> /etc/rc.local
-sudo echo "exit 0" >> /etc/rc.local
-
-sudo chmod +rwx /etc/rc.local
-sudo chown root /etc/rc.local
-
 gcc -o /home/username/PeanutGB/buttons.o /home/username/PeanutGB/buttons.c
 gcc -o /home/username/PeanutGB/menu.o /home/username/PeanutGB/menu.c
 gcc -O3 -o /home/username/PeanutGB/PeanutGB.o /home/username/PeanutGB/main.c
@@ -24,9 +12,10 @@ sudo chown username /home/username/PeanutGB/buttons.o
 sudo chown username /home/username/PeanutGB/menu.o
 sudo chown username /home/username/PeanutGB/PeanutGB.o
 
-echo "Installed PeanutGB! Reboot for changes to take effect."
-echo "To manually play: sh ~/PeanutGB/run.sh"
-echo "To auto play: echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc"
+echo "Installed PeanutGB!"
+echo "To reboot: sudo reboot"
+echo "Then, to manually play: sh ~/PeanutGB/run.sh"
+echo "Or, to auto play: echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc"
 
 
 
