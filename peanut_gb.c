@@ -15,7 +15,7 @@
 #include <sys/soundcard.h>
 #include <time.h>
 
-unsigned char cart_rom[0x400000]; // 4 MB max
+unsigned char cart_rom[0x800000]; // 8 MB max
 unsigned char cart_ram[32768]; // used for NES, GB, and SMS
 
 #define SCREEN_WIDTH 320
@@ -456,7 +456,7 @@ void lcd_draw_line(struct gb_s *gb,
 
 // DMG: core = 0
 // GBC: core = 1
-int PeanutGB(unsigned char core, const char *buttons_name)
+int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick_name)
 {	
 	int buttons_file = 0;
 
@@ -585,7 +585,9 @@ int PeanutGB(unsigned char core, const char *buttons_name)
 	
 	unsigned long previous_clock = 0;
 
-	while (buttons_buffer[0] == '0')
+	unsigned char infinite_loop = 1;
+
+	while (infinite_loop > 0)
 	{
 		gb.direct.joypad |= JOYPAD_UP;
 		gb.direct.joypad |= JOYPAD_DOWN;
@@ -596,11 +598,27 @@ int PeanutGB(unsigned char core, const char *buttons_name)
 		gb.direct.joypad |= JOYPAD_A;
 		gb.direct.joypad |= JOYPAD_B;
 
-		buttons_file = open(buttons_name, O_RDONLY);
+		buttons_file = open(keyboard_name, O_RDONLY);
 		read(buttons_file, &buttons_buffer, 9);
 		close(buttons_file);
 
-		// get key and joy inputs
+		// get key inputs
+		if (buttons_buffer[0] != '0') infinite_loop = 0; // exit
+		if (buttons_buffer[1] != '0') gb.direct.joypad &= ~JOYPAD_UP;
+		if (buttons_buffer[2] != '0') gb.direct.joypad &= ~JOYPAD_DOWN;
+		if (buttons_buffer[3] != '0') gb.direct.joypad &= ~JOYPAD_LEFT;
+		if (buttons_buffer[4] != '0') gb.direct.joypad &= ~JOYPAD_RIGHT;
+		if (buttons_buffer[5] != '0') gb.direct.joypad &= ~JOYPAD_SELECT;
+		if (buttons_buffer[6] != '0') gb.direct.joypad &= ~JOYPAD_START;
+		if (buttons_buffer[7] != '0') gb.direct.joypad &= ~JOYPAD_A;
+		if (buttons_buffer[8] != '0') gb.direct.joypad &= ~JOYPAD_B;
+
+		buttons_file = open(joystick_name, O_RDONLY);
+		read(buttons_file, &buttons_buffer, 9);
+		close(buttons_file);
+
+		// get joy inputs
+		if (buttons_buffer[0] != '0') infinite_loop = 0; // exit
 		if (buttons_buffer[1] != '0') gb.direct.joypad &= ~JOYPAD_UP;
 		if (buttons_buffer[2] != '0') gb.direct.joypad &= ~JOYPAD_DOWN;
 		if (buttons_buffer[3] != '0') gb.direct.joypad &= ~JOYPAD_LEFT;

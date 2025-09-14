@@ -109,8 +109,12 @@ int main(const int argc, const char **argv)
 	// this sets the volume, change accordingly
 	//system("amixer set Master 50%");
 
-	//PeanutGB(0, "/home/username/PeanutGB/buttons.val"); // DMG
-	PeanutGB(1, "/home/username/PeanutGB/buttons.val"); // GBC
+	//PeanutGB(0, 
+	//	"/home/username/PeanutGB/keyboard.val", // DMG
+	//	"/home/username/PeanutGB/joystick.val");
+	PeanutGB(1, 
+		"/home/username/PeanutGB/keyboard.val", 
+		"/home/username/PeanutGB/joystick.val"); // GBC
 
 	ioctl(tty_file, KDSETMODE, KD_TEXT); // turn on tty
 	close(tty_file);

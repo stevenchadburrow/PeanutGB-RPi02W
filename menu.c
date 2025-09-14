@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <time.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
@@ -46,14 +46,15 @@ int main()
 
 	system("echo '0' > /home/username/PeanutGB/game.val");
 
-	system("stty -echo -icanon");
-
 	int file = 0;
-	char buffer[1] = { '0' };
-	
+	char buffer[9] = { '0', '0', '0', '0', '0', '0', '0', '0', '0' };
+	char button[9] = { '0', '0', '0', '0', '0', '0', '0', '0', '0' };	
+
 	int redraw = 1;
 
-	while (buffer[0] != 27) // escape
+	unsigned long prev_clock = 0;
+
+	while (button[0] == '0') // escape
 	{
 		if (redraw > 0)
 		{
@@ -76,37 +77,49 @@ int main()
 			}
 		}
 
-		file = open("/dev/stdin", O_RDONLY);
-		read(file, &buffer, 1);
+		for (int i=0; i<9; i++) button[i] = '0';
+
+		file = open("/home/username/PeanutGB/keyboard.val", O_RDONLY);
+		read(file, &buffer, 9);
 		close(file);
 
-		if (buffer[0] == 119) // W
+		for (int i=0; i<9; i++) if (buffer[i] != '0') button[i] = '1';
+		
+		file = open("/home/username/PeanutGB/joystick.val", O_RDONLY);
+		read(file, &buffer, 9);
+		close(file);
+
+		for (int i=0; i<9; i++) if (buffer[i] != '0') button[i] = '1';
+
+		if (button[1] == '1' && clock() > prev_clock + 100000) // W
 		{
+			prev_clock = clock();
+
 			if (select > 0) select--;
 
 			redraw = 1;
 		}
-		else if (buffer[0] == 115) // S
+		else if (button[2] == '1' && clock() > prev_clock + 100000) // S
 		{
+			prev_clock = clock();
+
 			if (select < total-1) select++;
 
 			redraw = 1;
 		}
-		else if (buffer[0] == 110 || // N
-			buffer[0] == 109 || // M
-			buffer[0] == 10 || // enter
-			buffer[0] == 127) // backspace
+		else if (button[5] == '1' ||
+			button[6] == '1' ||
+			button[7] == '1' ||
+			button[8] == '1')
 		{
 			char command[512];
 			for (int i=0; i<512; i++) command[i] = 0;
 			sprintf(command, "echo '%s' > /home/username/PeanutGB/game.val", list[select]);
 			system(command);
 
-			buffer[0] = 27; // escape
+			button[0] = '1'; // escape
 		}
-	}	
-
-	system("stty echo icanon");
+	}
 
 	return 1;
 }
