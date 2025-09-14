@@ -42,7 +42,7 @@ You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HD
    ```
    video=HDMI-A-1:640x480M@60,margin_top=20,margin_bottom=20,margin_left=20,margin_right=20
    ```
-9) ``` sudo nano /etc/rc.local ```. If file already exists, add ``` sudo modprobe snd-pcm-oss ```.  Else, add these lines to the file:
+9) ``` sudo nano /etc/rc.local ```, and if file already exists, just add ``` sudo modprobe snd-pcm-oss ```.  Else, add these lines to the file:
    ```
    #!/bin/sh
    sudo modprobe snd-pcm-oss
