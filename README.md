@@ -23,7 +23,7 @@ RIGHT = GPIO13 / Pin33<br>
 You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HDMI adapter.<br>
 
 <b>Instructions to Install:</b><br>
-1) Re-image an 8GB+ SD Card with Raspberry Pi OS <u>Lite</u> 64-bit.<br>
+1) Re-image an 8GB+ SD Card with Raspberry Pi OS Lite 64-bit.<br>
 2) Go through installation process. Create user named ``` username ``` with pass named ``` password ```.<br>
 3) ``` sudo raspi-config ```, select to boot to Console instead of Desktop, disable Splash, and set VNC resolution to 640x480, then reboot.<br>
 4) ``` mkdir ~/PeanutGB ```, put all files found here into that folder.
