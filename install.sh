@@ -6,9 +6,9 @@ gcc -o /home/username/PeanutGB/menu.o /home/username/PeanutGB/menu.c
 gcc -O3 -o /home/username/PeanutGB/PeanutGB.o /home/username/PeanutGB/main.c
 
 echo "Installed PeanutGB!"
+echo "To manually play: sh ~/PeanutGB/run.sh"
+echo "To automatically play: echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc"
 echo "To reboot: sudo reboot"
-echo "Then, to manually play: sh ~/PeanutGB/run.sh"
-echo "Or, to auto play: echo 'sh ~/PeanutGB/run.sh' >> ~/.bashrc"
 
 
 
