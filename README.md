@@ -24,8 +24,8 @@ You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HD
 
 <b>Instructions to Install:</b><br>
 1) Re-image an 8GB+ SD Card with Raspberry Pi OS Lite 64-bit.<br>
-2) Go through installation process. Create user named ``` username ``` with pass named ``` password ```.<br>
-3) ``` sudo raspi-config ```, select to boot to Console instead of Desktop, disable Splash, and set VNC resolution to 640x480, then reboot.<br>
+2) Create user named ``` username ``` with pass named ``` password ```.<br>
+3) ``` sudo raspi-config ```, select to boot to Console instead of Desktop, and set VNC resolution to 640x480, then reboot.<br>
 4) ``` mkdir ~/PeanutGB ```, put all files found here into that folder.
 5) ``` mkdir ~/PeanutGB/ROMS ```, put whatever Gameboy and Gameboy Color ROMs into that folder.
 6) You can pull the SD Card from the Pi and connect it to another Linux computer to transfer files, or some other means.<br>
