@@ -29,7 +29,7 @@ You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HD
 4) ``` mkdir ~/PeanutGB ```, put all files found here into that folder.
 5) ``` mkdir ~/PeanutGB/ROMS ```, put whatever Gameboy and Gameboy Color ROMs into that folder.
 6) You can pull the SD Card from the Pi and connect it to another Linux computer to transfer files, or some other means.<br>
-7) ``` sudo nano /boot/firmware/config.txt ```, then add these lines to the bottom:
+7) ``` sudo nano /boot/firmware/config.txt ```, then add these lines to the bottom under ``` [all] ```:
    ```
    enable_tvout=0
    dtparam=spi=on
