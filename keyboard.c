@@ -6,11 +6,11 @@
 
 int main()
 {
-	system("echo \"000000000\" > /home/username/PeanutGB/keyboard.val");
+	system("echo \"0000000000000\" > /home/username/PeanutGB/keyboard.val");
 
-	char button[9];
+	char button[13];
 
-	for (int i=0; i<9; i++) button[i] = '0';
+	for (int i=0; i<13; i++) button[i] = '0';
 
 	char string[256];
 
@@ -77,20 +77,37 @@ int main()
 			{
 				button[6] = (char)((unsigned char)keys_ev.value + '0');
 			}
-			else if (keys_ev.code == 50) // m for A
+			else if (keys_ev.code == 37) // k for A
 			{
 				button[7] = (char)((unsigned char)keys_ev.value + '0');
 			}
-			else if (keys_ev.code == 49) // n for B
+			else if (keys_ev.code == 36) // j for B
 			{
 				button[8] = (char)((unsigned char)keys_ev.value + '0');
+			}
+			else if (keys_ev.code == 23) // i for X
+			{
+				button[9] = (char)((unsigned char)keys_ev.value + '0');
+			}
+			else if (keys_ev.code == 22) // u for Y
+			{
+				button[10] = (char)((unsigned char)keys_ev.value + '0');
+			}
+			else if (keys_ev.code == 35) // h for L
+			{
+				button[11] = (char)((unsigned char)keys_ev.value + '0');
+			}
+			else if (keys_ev.code == 38) // l for R
+			{
+				button[12] = (char)((unsigned char)keys_ev.value + '0');
 			}
 
 			for (int i=0; i<256; i++) string[i] = 0;
 	
-			sprintf(string, "echo \"%c%c%c%c%c%c%c%c%c\" > /home/username/PeanutGB/keyboard.val",
+			sprintf(string, "echo \"%c%c%c%c%c%c%c%c%c%c%c%c%c\" > /home/username/PeanutGB/keyboard.val",
 				button[0], button[1], button[2], button[3],
-				button[4], button[5], button[6], button[7], button[8]);
+				button[4], button[5], button[6], button[7], button[8],
+				button[9], button[10], button[11], button[12]);
 
 			//printf("%s\n", string);
 			system(string);

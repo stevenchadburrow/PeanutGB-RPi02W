@@ -6,11 +6,11 @@
 
 int main()
 {
-	system("echo \"000000000\" > /home/username/PeanutGB/joystick.val");
+	system("echo \"0000000000000\" > /home/username/PeanutGB/joystick.val");
 
-	char button[9];
+	char button[13];
 
-	for (int i=0; i<9; i++) button[i] = '0';
+	for (int i=0; i<13; i++) button[i] = '0';
 
 	char string[256];
 
@@ -86,12 +86,29 @@ int main()
 			{
 				button[8] = (char)((unsigned char)joy_ev.value + '0');
 			}
+			else if (joy_ev.type == 1 && joy_ev.number == 3) // y for X
+			{
+				button[9] = (char)((unsigned char)joy_ev.value + '0');
+			}
+			else if (joy_ev.type == 1 && joy_ev.number == 2) // x for Y
+			{
+				button[10] = (char)((unsigned char)joy_ev.value + '0');
+			}
+			else if (joy_ev.type == 1 && joy_ev.number == 4) // l for L
+			{
+				button[11] = (char)((unsigned char)joy_ev.value + '0');
+			}
+			else if (joy_ev.type == 1 && joy_ev.number == 5) // r for R
+			{
+				button[12] = (char)((unsigned char)joy_ev.value + '0');
+			}
 
 			for (int i=0; i<256; i++) string[i] = 0;
 	
-			sprintf(string, "echo \"%c%c%c%c%c%c%c%c%c\" > /home/username/PeanutGB/joystick.val",
+			sprintf(string, "echo \"%c%c%c%c%c%c%c%c%c%c%c%c%c\" > /home/username/PeanutGB/joystick.val",
 				button[0], button[1], button[2], button[3],
-				button[4], button[5], button[6], button[7], button[8]);
+				button[4], button[5], button[6], button[7], button[8],
+				button[9], button[10], button[11], button[12]);
 
 			//printf("%s\n", string);
 			system(string);

@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 
+const char *quick_game = "TOBUDX.GBC";
+
 int main()
 {
 	int select = 0;
@@ -47,8 +49,8 @@ int main()
 	system("echo '0' > /home/username/PeanutGB/game.val");
 
 	int file = 0;
-	char buffer[9] = { '0', '0', '0', '0', '0', '0', '0', '0', '0' };
-	char button[9] = { '0', '0', '0', '0', '0', '0', '0', '0', '0' };	
+	char buffer[13] = { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' };
+	char button[13] = { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' };	
 
 	int redraw = 1;
 
@@ -62,8 +64,8 @@ int main()
 
 			system("clear");
 			printf("PeanutGB-RPi02W\n");
-			printf("D-Pad: WSAD = UDLR\n");
-			printf("Buttons: NM = BA\n");
+			printf("D-Pad: WSAD Directions\n");
+			printf("Buttons: KJIUHL = ABXYLR\n");
 			printf("Enter/Backspace = Start/Select\n");
 			printf("Escape to Exit\n");
 			printf("Select Game:\n\n");
@@ -77,19 +79,19 @@ int main()
 			}
 		}
 
-		for (int i=0; i<9; i++) button[i] = '0';
+		for (int i=0; i<13; i++) button[i] = '0';
 
 		file = open("/home/username/PeanutGB/keyboard.val", O_RDONLY);
-		read(file, &buffer, 9);
+		read(file, &buffer, 13);
 		close(file);
 
-		for (int i=0; i<9; i++) if (buffer[i] != '0') button[i] = '1';
+		for (int i=0; i<13; i++) if (buffer[i] != '0') button[i] = '1';
 		
 		file = open("/home/username/PeanutGB/joystick.val", O_RDONLY);
-		read(file, &buffer, 9);
+		read(file, &buffer, 13);
 		close(file);
 
-		for (int i=0; i<9; i++) if (buffer[i] != '0') button[i] = '1';
+		for (int i=0; i<13; i++) if (buffer[i] != '0') button[i] = '1';
 
 		if (button[1] == '1' && clock() > prev_clock + 100000) // W
 		{
@@ -106,6 +108,15 @@ int main()
 			if (select < total-1) select++;
 
 			redraw = 1;
+		}
+		else if (button[11] == '1' && button[12] == '1') // L and R
+		{
+			char command[512];
+			for (int i=0; i<512; i++) command[i] = 0;
+			sprintf(command, "echo '%s' > /home/username/PeanutGB/game.val", quick_game);
+			system(command);
+
+			button[0] = '1'; // escape
 		}
 		else if (button[5] == '1' ||
 			button[6] == '1' ||

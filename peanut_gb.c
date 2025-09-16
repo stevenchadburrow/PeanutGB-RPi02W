@@ -29,6 +29,7 @@ unsigned short screen_large_buffer[SCREEN_LARGE_WIDTH*SCREEN_LARGE_HEIGHT];
 #define AUDIO_LENGTH 8192
 unsigned char audio_buffer[AUDIO_LENGTH];
 unsigned char audio_enable = 1;
+unsigned long audio_count = 0;
 
 #include "minigb_apu.h"
 #include "minigb_apu.c"
@@ -460,7 +461,8 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 {	
 	int buttons_file = 0;
 
-	char buttons_buffer[9] = { '0', '0', '0', '0', '0', '0', '0', '0', '0' };
+	char buttons_buffer[13] = { '0', '0', '0', '0', '0', '0', '0', '0', '0', 
+		'0', '0', '0', '0' };
 
 	for (unsigned int i=0; i<SCREEN_WIDTH*SCREEN_HEIGHT; i++)
 	{
@@ -473,13 +475,18 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 	}
 
 	int screen_file = 0;
+
 	int sound_file = 0;
+	int sound_fragment = 0x0010000A; // 16 blocks, each is 2^10 = 1024
+	int sound_stereo = 0;
 	int sound_format = AFMT_S8; // AFMT_U8;
-	int sound_speed = 61161; // calculations: 61161 = 1024 * (4194304 / 70224)
+	int sound_speed = AUDIO_SAMPLE_RATE; // calculations: 61162 = 1024 * (4194304 / 70224) + 1
 
 	sound_file = open("/dev/dsp", O_WRONLY);
 
-	ioctl(sound_file, SNDCTL_DSP_SETFMT, &sound_format);  
+	ioctl(sound_file, SNDCTL_DSP_SETFRAGMENT, &sound_fragment); // needed to stop the drift
+	ioctl(sound_file, SNDCTL_DSP_STEREO, &sound_stereo);
+	ioctl(sound_file, SNDCTL_DSP_SETFMT, &sound_format);
 	ioctl(sound_file, SNDCTL_DSP_SPEED, &sound_speed);
 
 	struct gb_s gb;
@@ -599,7 +606,7 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 		gb.direct.joypad |= JOYPAD_B;
 
 		buttons_file = open(keyboard_name, O_RDONLY);
-		read(buttons_file, &buttons_buffer, 9);
+		read(buttons_file, &buttons_buffer, 13);
 		close(buttons_file);
 
 		// get key inputs
@@ -614,7 +621,7 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 		if (buttons_buffer[8] != '0') gb.direct.joypad &= ~JOYPAD_B;
 
 		buttons_file = open(joystick_name, O_RDONLY);
-		read(buttons_file, &buttons_buffer, 9);
+		read(buttons_file, &buttons_buffer, 13);
 		close(buttons_file);
 
 		// get joy inputs
@@ -630,15 +637,7 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 
 		/* Execute CPU cycles until the screen has to be redrawn. */
 		gb_run_frame(&gb);
-				
-#if ENABLE_SOUND
-		if (audio_enable > 0)
-		{
-			audio_callback(&gb, (uint8_t *)&audio_buffer);
 
-			write(sound_file, &audio_buffer, AUDIO_SAMPLES);
-		}
-#endif
 		if (scanline_handheld == 0)
 		{
 			screen_file = open("/dev/fb0", O_RDWR);
@@ -655,6 +654,24 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 		// delay
 		while (clock() < previous_clock + 16667) { }
 		previous_clock = clock();
+
+#ifdef ENABLE_SOUND
+		if (audio_enable > 0)
+		{
+			audio_callback(&gb, (uint8_t *)&audio_buffer);
+
+
+			audio_count = 0; //audio_count++;
+			if (audio_count >= 120) // 2 seconds
+			{
+				audio_count = 0;
+			}
+			else
+			{
+				write(sound_file, &audio_buffer, 1024); // AUDIO_SAMPLES
+			}
+		}
+#endif
 	}
 
 	close(sound_file);

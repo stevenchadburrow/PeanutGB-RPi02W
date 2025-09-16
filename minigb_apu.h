@@ -9,7 +9,7 @@
 
 #include <stdint.h>
 
-#define AUDIO_SAMPLE_RATE	61161 // calculations: 61161 = 1024 * (4194304 / 70224), should be 48077?
+#define AUDIO_SAMPLE_RATE	61162 //61162 // calculations: 61162 = 1024 * (4194304 / 70224) + 1, should be 48077?
 
 #define DMG_CLOCK_FREQ		4194304.0
 #define SCREEN_REFRESH_CYCLES	70224.0
