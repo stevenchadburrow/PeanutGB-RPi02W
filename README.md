@@ -62,6 +62,7 @@ You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HD
 - The PeanutGB emulator used is actually a version by 'froggestspirit', found <a href="https://github.com/froggestspirit/Peanut-GB">here</a>, in order to play Gameboy Color games.<br>
 - If HDMI is plugged in on boot, games will be played through HDMI.  Else, games will be played through LCD.<br>
 - It can use a USB keyboard, or an Xbox360 style USB controller.<br>
+- PeanutGB emulator has fast forward button, turbo buttons, and save/load RAM to external file.<br>
 - All files here are compiled using ``` gcc ``` and only uses standard Linux libraries.<br>
 - In order to draw to the screen, PeanutGB will write directly to ``` /dev/fb0 ```.<br>
 - In order to get keyboard events, PeanutGB will read directly from ``` /dev/input/event0 ```.<br>
