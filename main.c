@@ -28,7 +28,7 @@ int main(const int argc, const char **argv)
 
 		fclose(game_file);
 
-		sprintf(game_path, "/home/username/PeanutGB/ROMS/%s", game_name);
+		sprintf(game_path, "/home/username/PeanutGB/%s", game_name);
 	}
 	else
 	{

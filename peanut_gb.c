@@ -29,7 +29,13 @@ unsigned short screen_large_buffer[SCREEN_LARGE_WIDTH*SCREEN_LARGE_HEIGHT];
 #define AUDIO_LENGTH 8192
 unsigned char audio_buffer[AUDIO_LENGTH];
 unsigned char audio_enable = 1;
-unsigned long audio_count = 0;
+
+unsigned char speed_limiter = 1;
+
+unsigned char turbo_state = 0;
+unsigned long turbo_counter = 0;
+unsigned char turbo_a = 0;
+unsigned char turbo_b = 0;
 
 #include "minigb_apu.h"
 #include "minigb_apu.c"
@@ -71,18 +77,42 @@ uint8_t gb_cart_ram_read(struct gb_s *gb, const uint_fast32_t addr)
 // Writes a given byte to the cartridge RAM at the given address.
 void gb_cart_ram_write(struct gb_s *gb, const uint_fast32_t addr,
 		       const uint8_t val)
-{	
+{
 	cart_ram[(addr&0x7FFF)] = val;
 }
 
-unsigned char gb_write_cart_ram_file(char filename[16])
-{	
-	return 0;
+unsigned char gb_write_cart_ram_file(const char *filename)
+{
+	FILE *output = NULL;
+
+	output = fopen(filename, "wb");
+	if (!output) return 0;
+
+	for (int i=0; i<32768; i++)
+	{
+		fprintf(output, "%c", cart_ram[i]);
+	}
+
+	fclose(output);
+
+	return 1;
 }
 
-unsigned char gb_read_cart_ram_file(char filename[16])
-{	
-	return 0;
+unsigned char gb_read_cart_ram_file(const char *filename)
+{
+	FILE *input = NULL;
+
+	input = fopen(filename, "rb");
+	if (!input) return 0;
+
+	for (int i=0; i<32768; i++)
+	{
+		fscanf(input, "%c", &cart_ram[i]);
+	}
+
+	fclose(input);
+
+	return 1;
 }
 
 /**
@@ -477,7 +507,7 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 	int screen_file = 0;
 
 	int sound_file = 0;
-	int sound_fragment = 0x0010000A; // 16 blocks, each is 2^10 = 1024
+	int sound_fragment = 0x0004000A; // 4 blocks, each is 2^10 = 1024
 	int sound_stereo = 0;
 	int sound_format = AFMT_S8; // AFMT_U8;
 	int sound_speed = AUDIO_SAMPLE_RATE; // calculations: 61162 = 1024 * (4194304 / 70224) + 1
@@ -605,6 +635,11 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 		gb.direct.joypad |= JOYPAD_A;
 		gb.direct.joypad |= JOYPAD_B;
 
+		speed_limiter = 1; // normal speed by default
+
+		turbo_a = 0;
+		turbo_b = 0;
+
 		buttons_file = open(keyboard_name, O_RDONLY);
 		read(buttons_file, &buttons_buffer, 13);
 		close(buttons_file);
@@ -620,6 +655,37 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 		if (buttons_buffer[7] != '0') gb.direct.joypad &= ~JOYPAD_A;
 		if (buttons_buffer[8] != '0') gb.direct.joypad &= ~JOYPAD_B;
 
+		if (buttons_buffer[9] != '0') turbo_a = 1;
+		if (buttons_buffer[10] != '0') turbo_b = 1;
+
+		if (buttons_buffer[11] != '0')
+		{
+			gb.direct.joypad |= JOYPAD_UP;
+			gb.direct.joypad |= JOYPAD_DOWN;
+			gb.direct.joypad |= JOYPAD_LEFT;
+			gb.direct.joypad |= JOYPAD_RIGHT;
+			gb.direct.joypad |= JOYPAD_SELECT;
+			gb.direct.joypad |= JOYPAD_START;
+			gb.direct.joypad |= JOYPAD_A;
+			gb.direct.joypad |= JOYPAD_B;
+
+			if (buttons_buffer[7] != '0')
+			{
+				gb_write_cart_ram_file("cart_ram.sav");
+			}
+
+			if (buttons_buffer[8] != '0')
+			{
+				gb_read_cart_ram_file("cart_ram.sav");
+				gb_reset(&gb);
+			}
+		}
+
+		if (buttons_buffer[12] != '0')
+		{
+			speed_limiter = 0;
+		}
+
 		buttons_file = open(joystick_name, O_RDONLY);
 		read(buttons_file, &buttons_buffer, 13);
 		close(buttons_file);
@@ -634,6 +700,69 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 		if (buttons_buffer[6] != '0') gb.direct.joypad &= ~JOYPAD_START;
 		if (buttons_buffer[7] != '0') gb.direct.joypad &= ~JOYPAD_A;
 		if (buttons_buffer[8] != '0') gb.direct.joypad &= ~JOYPAD_B;
+
+		if (buttons_buffer[9] != '0') turbo_a = 1;
+		if (buttons_buffer[10] != '0') turbo_b = 1;
+
+		if (buttons_buffer[11] != '0')
+		{
+			gb.direct.joypad |= JOYPAD_UP;
+			gb.direct.joypad |= JOYPAD_DOWN;
+			gb.direct.joypad |= JOYPAD_LEFT;
+			gb.direct.joypad |= JOYPAD_RIGHT;
+			gb.direct.joypad |= JOYPAD_SELECT;
+			gb.direct.joypad |= JOYPAD_START;
+			gb.direct.joypad |= JOYPAD_A;
+			gb.direct.joypad |= JOYPAD_B;
+
+			if (buttons_buffer[7] != '0')
+			{
+				gb_write_cart_ram_file("cart_ram.sav");
+			}
+
+			if (buttons_buffer[8] != '0')
+			{
+				gb_read_cart_ram_file("cart_ram.sav");
+				gb_reset(&gb);
+			}
+		}
+
+		if (buttons_buffer[12] != '0')
+		{
+			speed_limiter = 0;
+		}
+
+		turbo_counter++;
+
+		if (turbo_counter >= 6)
+		{
+			turbo_counter = 0;
+			turbo_state = 1 - turbo_state;
+		}
+
+		if (turbo_a > 0)
+		{
+			if (turbo_state > 0)
+			{
+				gb.direct.joypad &= ~JOYPAD_A;
+			}
+			else
+			{
+				gb.direct.joypad |= JOYPAD_A;
+			}
+		}
+
+		if (turbo_b > 0)
+		{
+			if (turbo_state > 0)
+			{
+				gb.direct.joypad &= ~JOYPAD_B;
+			}
+			else
+			{
+				gb.direct.joypad |= JOYPAD_B;
+			}
+		}
 
 		/* Execute CPU cycles until the screen has to be redrawn. */
 		gb_run_frame(&gb);
@@ -652,26 +781,19 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 		}
 
 		// delay
-		while (clock() < previous_clock + 16667) { }
-		previous_clock = clock();
+		if (speed_limiter > 0)
+		{
+			while (clock() < previous_clock + 16667) { }
+			previous_clock = clock();
 
 #ifdef ENABLE_SOUND
-		if (audio_enable > 0)
-		{
-			audio_callback(&gb, (uint8_t *)&audio_buffer);
-
-
-			audio_count = 0; //audio_count++;
-			if (audio_count >= 120) // 2 seconds
+			if (audio_enable > 0)
 			{
-				audio_count = 0;
-			}
-			else
-			{
+				audio_callback(&gb, (uint8_t *)&audio_buffer);
 				write(sound_file, &audio_buffer, 1024); // AUDIO_SAMPLES
 			}
-		}
 #endif
+		}
 	}
 
 	close(sound_file);

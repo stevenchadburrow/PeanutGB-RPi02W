@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 
-const char *quick_game = "TOBUDX.GBC";
+const char *quick_game = "TOBU.GB"; // ROMS/TOBUDX.GBC
 
 int main()
 {
@@ -109,7 +109,7 @@ int main()
 
 			redraw = 1;
 		}
-		else if (button[11] == '1' && button[12] == '1') // L and R
+		else if (button[12] == '1') // R
 		{
 			char command[512];
 			for (int i=0; i<512; i++) command[i] = 0;
@@ -125,7 +125,7 @@ int main()
 		{
 			char command[512];
 			for (int i=0; i<512; i++) command[i] = 0;
-			sprintf(command, "echo '%s' > /home/username/PeanutGB/game.val", list[select]);
+			sprintf(command, "echo 'ROMS/%s' > /home/username/PeanutGB/game.val", list[select]);
 			system(command);
 
 			button[0] = '1'; // escape
