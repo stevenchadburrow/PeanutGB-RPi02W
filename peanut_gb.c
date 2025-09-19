@@ -624,6 +624,8 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 
 	unsigned char infinite_loop = 1;
 
+	unsigned char left_bumper = 0;
+
 	while (infinite_loop > 0)
 	{
 		gb.direct.joypad |= JOYPAD_UP;
@@ -636,6 +638,8 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 		gb.direct.joypad |= JOYPAD_B;
 
 		speed_limiter = 1; // normal speed by default
+
+		left_bumper = 0;
 
 		turbo_a = 0;
 		turbo_b = 0;
@@ -660,14 +664,7 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 
 		if (buttons_buffer[11] != '0')
 		{
-			gb.direct.joypad |= JOYPAD_UP;
-			gb.direct.joypad |= JOYPAD_DOWN;
-			gb.direct.joypad |= JOYPAD_LEFT;
-			gb.direct.joypad |= JOYPAD_RIGHT;
-			gb.direct.joypad |= JOYPAD_SELECT;
-			gb.direct.joypad |= JOYPAD_START;
-			gb.direct.joypad |= JOYPAD_A;
-			gb.direct.joypad |= JOYPAD_B;
+			left_bumper = 1;
 
 			if (buttons_buffer[7] != '0')
 			{
@@ -706,14 +703,7 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 
 		if (buttons_buffer[11] != '0')
 		{
-			gb.direct.joypad |= JOYPAD_UP;
-			gb.direct.joypad |= JOYPAD_DOWN;
-			gb.direct.joypad |= JOYPAD_LEFT;
-			gb.direct.joypad |= JOYPAD_RIGHT;
-			gb.direct.joypad |= JOYPAD_SELECT;
-			gb.direct.joypad |= JOYPAD_START;
-			gb.direct.joypad |= JOYPAD_A;
-			gb.direct.joypad |= JOYPAD_B;
+			left_bumper = 1;
 
 			if (buttons_buffer[7] != '0')
 			{
@@ -762,6 +752,18 @@ int PeanutGB(unsigned char core, const char *keyboard_name, const char *joystick
 			{
 				gb.direct.joypad |= JOYPAD_B;
 			}
+		}
+
+		if (left_bumper > 0)
+		{
+			gb.direct.joypad |= JOYPAD_UP;
+			gb.direct.joypad |= JOYPAD_DOWN;
+			gb.direct.joypad |= JOYPAD_LEFT;
+			gb.direct.joypad |= JOYPAD_RIGHT;
+			gb.direct.joypad |= JOYPAD_SELECT;
+			gb.direct.joypad |= JOYPAD_START;
+			gb.direct.joypad |= JOYPAD_A;
+			gb.direct.joypad |= JOYPAD_B;
 		}
 
 		/* Execute CPU cycles until the screen has to be redrawn. */
