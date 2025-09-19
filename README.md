@@ -23,12 +23,12 @@ RIGHT = GPIO13 / Pin33<br>
 You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HDMI adapter.<br>
 
 <b>Instructions to Install:</b><br>
-1) Re-image an 8GB+ SD Card with Raspberry Pi OS Lite 64-bit.<br>
+1) Re-image an 8GB+ SD Card with Raspberry Pi OS (Lite) 64-bit.<br>
 2) Create user named ``` username ``` with pass named ``` password ```.<br>
-3) ``` sudo raspi-config ```, change settings in Auto Login to automatically login without password required.<br>
+3) ``` sudo raspi-config ```, change settings in Auto Login to automatically login without password required, as well as booting to Console instead of Desktop.<br>
 4) ``` mkdir ~/PeanutGB ```, put all files found here into that folder.<br>
 5) ``` mkdir ~/PeanutGB/ROMS ```, put whatever Gameboy and Gameboy Color ROMs into that folder.<br>
-6) You can pull the SD Card from the Pi and connect it to another Linux computer to transfer files, or some other means.<br>
+6) You can pull the SD Card from the Pi and connect it to another Linux computer to transfer files, use built-in Desktop environment, or some other means.<br>
 7) ``` sudo nano /boot/firmware/config.txt ```, and comment out the line ``` #dtoverlay=vc4-kms-v3d ```, the then add these lines to the bottom under ``` [all] ```:
    ```
    dtoverlay=vc4-fkms-v3d
