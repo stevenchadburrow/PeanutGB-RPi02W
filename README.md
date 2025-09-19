@@ -69,6 +69,9 @@ You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HD
 - In order to send audio data, PeanutGB will stream directly to ``` /dev/dsp ```.<br>
 - Warning: ``` /dev/dsp ``` is only available after ``` sudo modprobe snd-pcm-oss ```.<br>
 
+<b>Videos:</b><br>
+<a href="https://youtube.com/shorts/ARCSKjPH7FA?si=rqlXaKl9zKCdxzBo">Youtube Short of Tobu Tobu Girl DX</a><br>
+
 <b>Pictures:</b><br>
 <img src="PeanutGB-RPi02W-LCD.jpg"><br>
 <img src="PeanutGB-RPi02W-HDMI.jpg"><br>
