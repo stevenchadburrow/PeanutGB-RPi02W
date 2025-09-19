@@ -12,7 +12,7 @@ MISO = GPIO9 / Pin21<br>
 MOSI = GPIO10 / Pin19<br>
 SCLK = GPIO11 / Pin23<br>
 RESET = GPIO0 / Pin27<br>
-DC = GPIO22 / Pin15<br>
+DC = GPIO1 / Pin28<br>
 LED is connected to 3V3<br>
 
 <b>Connecting a 3.5mm Audio Jack using pins:</b><br>
@@ -38,7 +38,7 @@ You will also need a USB-Micro to USB-A (Female) adapter, and an HDMI-mini to HD
    max_framebuffers=2
    enable_tvout=0
    dtparam=spi=on
-   dtoverlay=fbtft,spi0-0,ili9341,bgr,rotate=270,speed=50000000,dc_pin=22,reset_pin=0,framebuffer_width=320,framebuffer_height=240
+   dtoverlay=fbtft,spi0-0,ili9341,bgr,rotate=270,speed=50000000,dc_pin=1,reset_pin=0,framebuffer_width=320,framebuffer_height=240
    dtoverlay=audremap,pins_12_13
    audio_pwm_mode=2
    disable_audio_dither
